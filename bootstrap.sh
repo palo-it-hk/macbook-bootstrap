@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-GIT_REPO_PREFIX=git@github.com:gdsace/
+GIT_REPO_PREFIX=git@github.com:palo-it-hk/
 WORKSPACE_PATH="$HOME/palo-it"
 JAVA_VERSION=8.0.322-tem
 NODE_LTS_NAME=erbium
@@ -191,18 +191,8 @@ fi
 echo ''
 echo 'Checking out all projects'
 git config --global url."git@github.com:".insteadOf "https://github.com/"
-checkout_project molb_covid_portal_e2e_test
-checkout_project molb-backend
-checkout_project molb-covid-camunda-boot
-checkout_project molb-e2e-test
-checkout_project molb-jobs
-checkout_project molb-libui
-checkout_project molb-rfa-backend
-checkout_project molb-rfa-web
-checkout_project molb-services
-checkout_project molb-util
-checkout_project molb-web
-checkout_project molb-wiremock
+checkout_project tech-excellence-flutter
+checkout_project hubspot-palo-it-web
 
 echo ''
 echo 'Setting up host aliases'
