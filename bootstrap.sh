@@ -1,11 +1,15 @@
 #!/usr/bin/env bash
 
 GIT_REPO_PREFIX=git@github.com:palo-it-hk/
+# Use simplified names. "tech-excellence-flutter" "hubspot-palo-it-web"
+PROJECTS_TO_CHECKOUT=()
 WORKSPACE_PATH="$HOME/palo-it"
-JAVA_VERSION=8.0.322-tem
-NODE_LTS_NAME=erbium
-PYTHON_VERSION=3.9.10
-RUBY_VERSION=2.5.9
+# See sdk list java for options
+JAVA_VERSION=17.0.3-tem
+# lowercase LTS name only 
+NODE_LTS_NAME=gallium
+# Exact version string
+PYTHON_VERSION=3.9.12
 
 # Check whether an application is available
 exists()
@@ -135,7 +139,9 @@ echo 'Setting up services from brew'
 brew install \
     jq \
     ktlint \
+    nginx \
     nvm \
+    postgresql \
     pyenv \
     rbenv
 
@@ -146,13 +152,15 @@ brew install --cask \
   docker \
   gpg-suite \
   insomnia \
-  macpass \
+  keepassxc \
+  miro \
   openvpn-connect \
   postman \
   slack \
   shottr \
   stoplight-studio \
-  tunnelblick
+  tunnelblick \
+  visual-studio-code
 
 echo ''
 echo 'Java setup ($JAVA_VERSION) through sdkman'
@@ -167,12 +175,6 @@ sed -i '' \
 sdk install java $JAVA_VERSION && \
 sdk install gradle && \
 java -version
-
-
-echo ''
-echo "ruby setup (${RUBY_VERSION}) through RUBY."
-rbenv install $RUBY_VERSION -f
-rbenv global $RUBY_VERSION
 
 echo ''
 echo "Python setup (${PYTHON_VERSION}) through pyenv."
@@ -191,23 +193,6 @@ fi
 echo ''
 echo 'Checking out all projects'
 git config --global url."git@github.com:".insteadOf "https://github.com/"
-checkout_project tech-excellence-flutter
-checkout_project hubspot-palo-it-web
-
-echo ''
-echo 'Setting up host aliases'
-if grep -Fxq "# START PALOIT" /etc/hosts
-    then
-        echo 'Rules already set'
-    else
-        sudo cat>>/etc/hosts << END
-#
-# START PALOIT
-#
-# Local Development
-127.0.0.1 localdev.com
-#
-# END PALOIT
-#
-END
-fi
+for str in ${PROJECTS_TO_CHECKOUT[@]}; do
+  checkout_project $str
+done
