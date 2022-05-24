@@ -85,10 +85,6 @@ echo 'Make sure the above SSH key is present on your Github profile'
 read -p "Press enter to continue"
 
 echo ''
-echo 'Installing xcode'
-xcode-select --install
-
-echo ''
 echo 'Setting terminal profile'
 if grep -Fxq "# START PALOIT" ~/.zshrc
     then
@@ -127,7 +123,6 @@ else
 fi
 
 brew doctor
-
 
 echo ''
 echo 'Setting up services from brew'
